@@ -1,0 +1,60 @@
+﻿@model Tivote.Models.ViewModels.NewsDto
+@{
+    SelectListItem[]? categories = ViewData["Categories"] as SelectListItem[];
+}
+<div class="modal fade" tabindex="-1" role="dialog" id="createNews">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">افزودن خبر</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true" />
+                </button>
+            </div>
+            <form asp-action="CreateNews" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Content" class="control-label"></label>
+                        <textarea asp-for="Content" class="form-control" ></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <hr />
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" asp-items="@categories" class="form-control"></select>
+                    <hr />
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <div>
+                            <input asp-for="Image" />
+                        </div>
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button data-toggle="ajax-modal" data-target="#createContact" data-url="@Url.Action("CreateNews")" type="submit" class="btn btn-primary">ذخیره</button>
+                        <button data-dismiss="modal" id="cancel" class="btn btn-danger" type="button">انصراف</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

@@ -1,0 +1,39 @@
+﻿<div id="modal-container" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+<a href="@Url.Action("CreateEdit", new { controller = "Contacts", issueid = "1", addedit = "add" })" class="modal-link btn btn-success">Add New Status</a>
+
+
+@section scripts{
+    <script>
+        $('body').on('click', '.modal-link', function () {
+            var actionUrl = $(this).attr('href');
+            $.get(actionUrl).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+            $(this).attr('data-target', '#modal-container');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+        $('body').on('click', '.relative', function (e) {
+            e.preventDefault();
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            var dataToSend = form.serialize();
+            $.post(actionUrl, dataToSend).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+        })
+
+        $('body').on('click', '.close', function () {
+            $('body').find('#modal-container').modal('hide');
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    </script>
+}

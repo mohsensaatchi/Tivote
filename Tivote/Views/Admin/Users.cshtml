@@ -1,0 +1,16 @@
+﻿@model IEnumerable<User>
+
+<table>
+    @{
+        foreach (User user in Model)
+        {
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+            </tr>
+        }
+
+    }
+
+</table>

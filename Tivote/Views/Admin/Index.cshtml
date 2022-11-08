@@ -1,0 +1,46 @@
+﻿@model IEnumerable<User>
+@{
+    Layout = "AdminLayout";
+}
+<table class="w-100 table table-striped">
+    <thead>
+        <tr>
+            <th>
+                نام خانوادگی و نام
+            </th>
+            <th>
+                نام کاربری
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    @{
+                        if (item.Contact != null)
+                        {
+                            <td>
+                                @item.Contact.LastName @item.Contact.FirstName
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                ---
+                            </td>
+                        }
+                        <td>
+                            @item.Name
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+

@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Role>
+<table>
+    @{
+        foreach (Role role in Model)
+        {
+            <tr>
+                <td>
+                    @role.Name
+                </td>
+            </tr>
+        }
+
+    }
+
+</table>
+<a data-toggle="ajax-modal" data-target="#createRole" data-url="@Url.Action("CreateRole")" class="btn btn-primary w-100 ">افزودن نقش کاربری جدید</a>

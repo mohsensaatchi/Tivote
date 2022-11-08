@@ -1,0 +1,32 @@
+﻿@using static Tivote.ViewComponents.SidebarMenuViewComponent
+@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col col-3">
+        @{
+            List<SidebarMenuItem> menuItems = new List<SidebarMenuItem>()
+        {
+        new SidebarMenuItem() { Area="",Controller="Meal",Action="",Text="رزرو غذا"},
+        new SidebarMenuItem() { Area="",Controller="Meal",Action="Suppliers",Text="تامین کنندگان"},
+        new SidebarMenuItem() { Area="",Controller="Meal",Action="Meals",Text="غذاها"},
+        new SidebarMenuItem() { Area="",Controller="Meal",Action="",Text="منوی تامین کننده"}
+        };
+        }
+        @await Component.InvokeAsync("SidebarMenu",menuItems)
+    </div>
+    <div class="col col-9">
+        @RenderBody()
+    </div>
+</div>
+@*<a class="nav-link" asp-area="" asp-controller="Meal" asp-action="Index">رزرو غذا</a>
+@{
+    if (CurrentUser.Permissions.Where(p => p.Name == "Meal").Any())
+    {
+        <a class="nav-link" asp-area="" asp-controller="Meal" asp-action="ReserveMeal" style="font-family: KalamehWebFaNum;">تعریف منوی هفتگی</a>
+        <a class="nav-link" asp-area="" asp-controller="Meal" asp-action="ReserveMeal" style="font-family: KalamehWebFaNum;">تامین کنندگان</a>
+        <a class="nav-link" asp-area="" asp-controller="Meal" asp-action="ReserveMeal" style="font-family: KalamehWebFaNum;">غذاها</a>
+        <a class="nav-link" asp-area="" asp-controller="Meal" asp-action="ReserveMeal" style="font-family: KalamehWebFaNum;">منوی تامین کننده</a>
+    }
+}
+*@

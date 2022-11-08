@@ -1,0 +1,138 @@
+/*
+ Theme Name:   Darna Child Theme
+ Theme URI:    http://themes.g5plus.net/darna
+ Description:  Darna Child Theme
+ Author:       G5plus
+ Author URI:   http://g5plus.net
+ Template:     darna
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+Tags: 				two-columns, three-columns, left-sidebar, right-sidebar, fixed-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready
+Text Domain: 		g5plus-framework
+*/
+
+
+/************************************************************************************
+Put your custom CSS below this block :)
+*************************************************************************************/
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 100;
+	src: url('fonts/woff2/KalamehWebFaNum-Thin.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Thin.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 200;
+	src: url('fonts/woff2/KalamehWebFaNum-ExtraLight.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-ExtraLight.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 300;
+	src: url('fonts/woff2/KalamehWebFaNum-Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Light.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 500;
+	src: url('fonts/woff2/KalamehWebFaNum-Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Medium.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 600;
+	src: url('fonts/woff2/KalamehWebFaNum-SemiBold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-SemiBold.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 800;
+	src: url('fonts/woff2/KalamehWebFaNum-ExtraBold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-ExtraBold.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: 900;
+	src: url('fonts/woff2/KalamehWebFaNum-Black.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Black.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: bold;
+	src: url('fonts/woff2/KalamehWebFaNum-Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Bold.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+@font-face {
+	font-family: KalamehWebFaNum;
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/woff2/KalamehWebFaNum-Regular.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+		 url('fonts/woff/KalamehWebFaNum-Regular.woff') format('woff');  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+}
+
+body,h1,h2,h3,h4,h5,h6,p,a,span,.widget-text-intro,.heading.bold-color.secondary-font,.title.secondary-font.bold-color.primary-color-hover,.time.menu-font,.title.secondary-font {
+	font-family: "KalamehWebFaNum" !important;
+}
+ul.x-sub-menu.x-sub-menu-standard.x-list-style-none.x-animate-sign-flip {
+    left: auto !important;
+}
+.x-nav-menu ul.x-sub-menu b.x-caret {
+    right: auto !important;
+    left: 0;
+}
+.block-center-inner {
+    text-align: right;
+}
+.site-content-single-product .single-product-info form.cart div.quantity, .site-content-single-product .single-product-info div.cart div.quantity, .site-content-single-product .single-product-info p.cart div.quantity {
+    margin-left: 20px !important;
+	margin-right: 0px !important;
+}
+th.label {
+    color: #000;
+    font-size: 15px;
+}
+.woocommerce .star-rating span::before {
+    font-family: 'star';
+}
+.site-content-single-product .single-product-info .woocommerce-product-rating .star-rating {
+    margin: 8px 0px 0px 10px !important;
+}
+.woocommerce #reviews #comments ol.commentlist li img.avatar {
+    margin-left: 20px !important;
+}
+.mail-chimp-wrapper .mail-chimp-button button {
+    left: 5px !important;
+}
+.portfolio-info-box.share {
+    direction: ltr !important;
+}
+.portfolio-navigation-wrap,.pp_details {
+    direction: ltr !important;
+}
+footer.main-footer-wrapper .collapse:before {
+    content: "\f053" !important;
+    left: 10px !important;
+	right: auto !important;
+}
+footer.main-footer-wrapper .expanded:before {
+    content: "\f078";
+	left: 10px !important;
+	right: auto !important;
+}
+i.fa.fa-paper-plane {
+    float: left !important;
+}
+.site-content .widget-text-intro, .sidebar .widget-text-intro {
+    padding: 25px 10px !important;
+}

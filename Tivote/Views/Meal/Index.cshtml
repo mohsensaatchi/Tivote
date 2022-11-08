@@ -1,0 +1,86 @@
+﻿@using System.Globalization;
+@model ReserveMealDto
+@{
+    Layout = "MealLayout";
+}
+@{
+    string rowStyle = "";
+    string disabled = "";
+}
+<form asp-action="ReserveMeal">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="m-2">
+        <table class="table table-striped-columns">
+            @{
+                PersianCalendar pc = new();
+                foreach (var item in Model.DailyMenu)
+                {
+                    if (item.Key == DateTime.Today)
+                    {
+                        rowStyle = "text-secondary";
+                    }
+                    else if (item.Key < DateTime.Today || Model.DailyMenu[item.Key].Count == 0)
+                    {
+                        rowStyle += "disabled";
+                    }
+                    else
+                    {
+                        rowStyle = "text-primary";
+                    }
+                    <tr class=@rowStyle>
+                        <td><p>@Common.WeekDays[@item.Key.DayOfWeek.ToString()] </p></td>
+                        <td><p>@pc.GetYear(@item.Key)/@pc.GetMonth(@item.Key)/@pc.GetDayOfMonth(@item.Key)</p></td>
+                        <td>
+                            @if (item.Key <= DateTime.Today || Model.DailyMenu[item.Key].Count == 0)
+                            {
+                                disabled = "";
+                            }
+                            else disabled = "";
+                            @{
+                                SelectList dailyMenu = new SelectList(Model.DailyMenu[item.Key], "Id", "Supplier.Name" + "Meal.Name");
+                            }
+                            <select asp-for="DailyMenu" asp-items="@dailyMenu" name="meals" id="meals">
+                                @if (Model.DailyMenu[item.Key].Count == 0)
+                                {
+                                    <option>منوی غذایی مشخص نشده است.</option>
+                                }
+                                @{
+                                    foreach (var menuItem in Model.DailyMenu[item.Key])
+                                    {
+                                        <option value=@menuItem>@menuItem.Supplier.Name @menuItem.Meal.Name</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <select @disabled>
+                                <option>
+                                    طبقه دوم واحد غربی
+                                </option>
+                                <option>
+                                    طبقه دوم واحد شرقی
+                                </option>
+                                <option>
+                                    طبقه اول واحد غربی
+                                </option>
+                                <option>
+                                    طبقه اول واحد شرقی
+                                </option>
+                                <option>
+                                    طبقه سوم واحد غربی
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+        @{
+            int lastWeek = Model.Week - 1;
+            int nextWeek = Model.Week + 1;
+        }
+        <a asp-action="Index" asp-route-wn=@lastWeek>هفته قبل</a>
+        <input type="submit" asp-action="ReserveMeal" value="ذخیره"/>
+        <a asp-action="Index" asp-route-wn=@nextWeek>هفته بعد</a>
+    </div>
+</form>

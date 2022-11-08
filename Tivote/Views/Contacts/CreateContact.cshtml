@@ -1,0 +1,71 @@
+﻿@model Tivote.Models.ViewModels.ContactDto
+@{
+    ViewData["Title"] = "ایجاد تماس";
+}
+
+<hr />
+@{
+    SelectListItem[]? departments = ViewData["DepartmentId"] as SelectListItem[];
+    SelectListItem[]? locations = ViewData["LocationId"] as SelectListItem[];
+    SelectListItem[]? titles = ViewData["TitleId"] as SelectListItem[];
+
+}
+@{
+    if (departments == null)
+    {
+    <p>"جدول مجموعه سازمانی خالی است."</p>
+    }
+}
+@{
+    if (locations == null)
+    {
+    <p>"جدول مکانهای استقرار خالی است."</p>
+    }
+}
+
+<form asp-action="CreateContact">
+    <div class="modal-body">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <label asp-for="TitleId" class="control-label"></label>
+        <select asp-for="TitleId" asp-items="@titles" class="form-control"></select>
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Number" class="control-label"></label>
+            <input asp-for="Number" class="form-control" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <hr />
+        <label asp-for="DepartmentId" class="control-label"></label>
+        <select asp-for="DepartmentId" asp-items="@departments" class="form-control"></select>
+        <hr />
+        <label asp-for="LocationId" class="control-label"></label>
+        <select asp-for="LocationId" asp-items="@locations" class="form-control"></select>
+        <hr />
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">ذخیره</button>
+            <a asp-action="CloseModal" class="btn btn-secondary">انصراف</a>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

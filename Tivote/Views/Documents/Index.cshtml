@@ -1,0 +1,84 @@
+﻿@model Category
+@{
+    <p>@Html.Raw(@Model.HtmlPath)</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    نام
+                </th>
+                <th>
+                    توضیحات
+                </th>
+                <th>
+                    عملیات
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.Subcategories)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Index" asp-route-id=@item.Id>@item.Name</a>
+                        </td>
+                        <td>
+                        <p>@item.Description</p>
+                        </td>
+                        <td>
+                            <a asp-action="RenameCategory" class="btn btn-primary" asp-route-id=@item.Id>تغییر نام شاخه</a>
+                            <a asp-action="DeleteCategory" class="btn btn-danger" asp-route-id=@item.Id>حذف شاخه</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <hr/>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    نام
+                </th>
+                <th>
+                    توضیحات
+                </th>
+                <th>
+                    نسخه
+                </th>
+                <th>
+                    عملیات
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model.Files)
+                {
+                    <tr>
+                        <td>
+                            <p>@item.Name</p>
+                        </td>
+                        <td>
+                            <p>@item.Description</p>
+                        </td>
+                        <td>
+                            <p>@item.Version</p>
+                        </td>
+                        <td>
+                            <a asp-action="UpdateFile" class="btn btn-primary" asp-route-id=@item.Id>به روزرسانی فایل</a>
+                            <a asp-action="DownloadFile" class="btn btn-secondary" asp-route-id=@item.Id>دریافت فایل</a>
+                            <a asp-action="DownloadFile" class="btn btn-dark" asp-route-id=@item.Id>تاریخچه فایل</a>
+                            <a asp-action="DownloadFile" class="btn btn-danger" asp-route-id=@item.Id>حذف فایل</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <hr />
+    <a asp-action="CreateCategory" asp-route-parentId=@Model.Id>ساخت زیرشاخۀ جدید</a>
+    <a asp-action="UploadDocument" asp-route-parentId=@Model.Id>بارگذاری فایل</a>
+}

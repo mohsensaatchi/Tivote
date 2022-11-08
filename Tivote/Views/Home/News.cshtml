@@ -1,0 +1,35 @@
+﻿@using System.Globalization
+@model IEnumerable<News>
+@{
+    Layout = "HomeLayout";
+}
+@{
+    Dictionary<string, string> days = new()
+    {
+        {"Monday", "دوشنبه"},
+        {"Tuesday", "سه‌شنبه"},
+        {"Wednesday", "چهارشنبه"},
+        {"Thursday", "پنج‌شنبه"},
+        {"Friday", "جمعه"},
+        {"Saturday", "شنبه"},
+        {"Sunday", "یکشنبه"}
+    };
+    PersianCalendar pc = new();
+    foreach (News news in Model)
+    {
+        string src = news.ImageUrl is null ? "" : $"../..{news.ImageUrl.Substring(1).Replace("png", "jpg").Replace("0", "6")}";
+        if (src != string.Empty)
+        {
+            <img src=@src />
+        }
+        <br />
+        <h1>@news.Title</h1>
+        <br />
+        <h4 class="text-muted">@news.Description</h4>
+        <p class="text-muted"> @days[@pc.GetDayOfWeek(news.DateTime).ToString()] @pc.GetYear(news.DateTime)/@pc.GetMonth(news.DateTime)/@pc.GetDayOfMonth(news.DateTime)</p>
+        <br />
+        <p style="text-align:justify;">@news.Content</p>
+        <a class="btn btn-primary" asp-action="Index">بازگشت به صفحه اخبار</a>
+    }
+}
+

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - پورتال تیوانرژی</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Tivote.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/summernote/dist/summernote.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">پورتال شرکت تیوانرژی</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @{
+                    NavbarMenuItem[] items = new NavbarMenuItem[5]
+                    {
+                new NavbarMenuItem("خانه","", "Home", "Index"),
+                new NavbarMenuItem("امور تغذیه","", "Meal", "Index"),
+                new NavbarMenuItem("اطلاعات تماس","", "Contacts", "Index"),
+                new NavbarMenuItem("مدارک سیستمی","", "Documents", "Index"),
+                new NavbarMenuItem("راهبری","", "Admin", "Index")
+
+                    };
+                }
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @foreach (var item in items)
+                        {
+                            string active = "";
+                            if (Context.Request.Path.StartsWithSegments("/" + item.Controller) || (Context.Request.Path == "/" && item.Controller == "Home")) active = "btn btn-primary text-light";
+                            <li class="nav-item">
+                                <a class="nav-link @active" asp-area="@item.Area" asp-controller="@item.Controller" asp-action="@item.Action">@item.Text</a>
+                            </li>
+                        }
+                    </ul>
+                    <table class="text-muted">
+                        <tr>
+                            <td>
+                    <p class="text-muted">@CurrentUser.Name</p>            
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="text-muted">@CurrentUser.Today</p>
+                            </td>
+                        </tr>
+                        </table>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col col-10">
+                    @RenderBody()
+                </div>
+                <div class="col col-2">
+                    <a href="http://www.tivenergy.com/" target="_blank">سایت شرکت</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="PlaceHolderHere"></div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/summernote/dist/summernote.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

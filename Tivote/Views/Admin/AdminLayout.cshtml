@@ -1,0 +1,35 @@
+﻿@using static Tivote.ViewComponents.SidebarMenuViewComponent
+@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col col-3">
+        @{
+            List<SidebarMenuItem> menuItems = new List<SidebarMenuItem>()
+        {
+        new SidebarMenuItem() { Area="",Controller="Admin",Action="Index",Text="کاربران"},
+        new SidebarMenuItem() { Area="",Controller="Admin",Action="EditRoles",Text="نقشهای کاربری"},
+        new SidebarMenuItem() { Area="",Controller="Admin",Action="Permissions",Text="مجوزها"},
+        new SidebarMenuItem() { Area="",Controller="Admin",Action="Permissions",Text="مجوزهای نقش"},
+        new SidebarMenuItem() { Area="",Controller="Admin",Action="UserRoles",Text="نقشهای کاربران"}
+        };
+        }
+        @await Component.InvokeAsync("SidebarMenu",menuItems)
+    </div>
+    @{
+        TivPortal.ViewComponents.ModalViewComponent.ModalPath? modalPath = ViewBag.Modal as TivPortal.ViewComponents.ModalViewComponent.ModalPath;
+        if (modalPath is not null)
+        {
+            @await Component.InvokeAsync("Modal", new
+    {
+    Title = modalPath.Title,
+    Action = modalPath.Action,
+    Model = modalPath.Model
+    }
+    )
+        }
+    }
+    <div class="col col-9">
+        @RenderBody()
+    </div>
+</div>

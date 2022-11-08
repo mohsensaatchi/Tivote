@@ -1,0 +1,70 @@
+﻿@model Tivote.Models.ViewModels.SearchContact
+@{
+    Layout = "ContactsLayout";
+}
+@{
+    ViewData["Title"] = "جستجوی اطلاعات تماس";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SearchContact">
+            <div class="form-group text-light">
+                <input asp-for="SearchText" class="form-control" />
+                <span asp-validation-for="SearchText" class="text-danger"></span>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <input type="submit" value="جستجو" class="btn btn-primary" style="font-family: KalamehWebFaNum;" />
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+@if (Model.SerchResult.Count > 0)
+{
+    <table class="table table-striped bg-light rounded-4">
+        <thead>
+            <tr>
+                <th>
+                    نام و نام خانوادگی
+                </th>
+                <th>
+                    شماره
+                </th>
+                <th>
+                    پست الکترونیک
+                </th>
+                <th>
+                    واحد
+                </th>
+                <th>
+                    محل استقرار
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var contact in Model.SerchResult)
+                {
+                    <tr>
+                        <td>
+                            @contact.FirstName @contact.LastName
+                        </td>
+                        <td>
+                            @contact.Number
+                        </td>
+                        <td>
+                            @contact.Email
+                        </td>
+                        <td>
+                            @contact.Department.Name
+                        </td>
+                        <td>
+                            @contact.Location.Name
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,58 @@
+﻿@using static Tivote.ViewComponents.SidebarMenuViewComponent
+@model IEnumerable<Tivote.Models.News.NewsCategory>
+@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col col-3">
+        @{
+            List<SidebarMenuItem> menuItems = new List<SidebarMenuItem>()
+        {
+        new SidebarMenuItem() { Area="",Controller="Home",Action="",Text="تازه‌ها"},
+        new SidebarMenuItem() { Target="createNewsCategory",Modal=true,Action="CreateNewsCategory",Text="ایجاد دسته‌بندی جدید اخبار"},
+        new SidebarMenuItem() { Target="createNewsCategory",Modal=true,Action="CreateNews",Text="مطلب جدید"},
+        };
+        }
+        @await Component.InvokeAsync("SidebarMenu",menuItems)
+        @*<a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary w-100">تازه‌ها</a>
+        <hr />
+        <a data-toggle="ajax-modal" data-target="#createNewsCategory" data-url="@Url.Action("CreateNewsCategory")" class="btn btn-primary w-100">ایجاد دسته‌بندی جدید اخبار</a>
+        <hr />
+        <a data-toggle="ajax-modal" data-target="#createNewsCategory" data-url="@Url.Action("CreateNews")" class="btn btn-primary w-100">مطلب جدید</a>
+        <hr />*@
+    </div>
+    <div class="col col-9" style="height:100%;">
+        @RenderBody()
+    </div>
+</div>
+@section scripts{
+    <script>
+        $('body').on('click', '.modal-link', function () {
+            var actionUrl = $(this).attr('href');
+            $.get(actionUrl).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+            $(this).attr('data-target', '#modal-container');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+        $('body').on('click', '.relative', function (e) {
+            e.preventDefault();
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            var dataToSend = form.serialize();
+            $.post(actionUrl, dataToSend).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+        })
+
+        $('body').on('click', '.close', function () {
+            $('body').find('#modal-container').modal('hide');
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    </script>
+}
+    @await RenderSectionAsync("Scripts", required: false)

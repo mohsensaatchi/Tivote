@@ -1,0 +1,106 @@
+﻿@model IEnumerable<MealSupplier>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    Layout = "MealLayout.cshtml";
+
+}
+@*<p>
+    <a asp-action="Create">افزودن غذا به منوی تامین کننده</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IamgeUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Decription)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IamgeUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Decription)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="Create" class="btn btn-light">تامین کننده جدید</a>
+</p>*@
+@{
+    int i = 0;
+}
+<div class="accordion" id="suppliers">
+    @foreach (var item in Model)
+    {
+        i++;
+        string controls = $"collapse{i.ToString().Trim()}";
+        string target = $"#{controls}";
+        string heading = $"heading{i.ToString().Trim()}";
+
+        <h2 class="accordion-header" id=@heading>
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target=@target aria-expanded="true" aria-controls=@controls>
+                <div>
+                    <p>@item.Name</p>
+                </div>
+            </button>
+        </h2>
+        <div id=@controls class="accordion-collapse collapse" aria-labelledby=@heading data-bs-parent="#suppliers">
+            <div class="accordion-body">
+                <p>
+                    <div class="container">
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="card m-2 shadow" style="height: 32rem;">
+                                        <img src="~/images/meals/1.jpg" class="card-img-top" alt="..." style="height:20rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title">چلو جوجه کباب با کوبیده</h5>
+                                            <p class="card-text">یک سیخ جوجه کباب سینه مرغ ۳۰۰ گرمی، ۳۵۰ گرم برنج ایرانی، کره، گوجه فرنگی</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="card m-2 shadow" style="height: 32rem;">
+                                        <img src="~/images/meals/2.jpg" class="card-img-top" alt="..." style="height:20rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title">ته چین مرغ</h5>
+                                            <p class="card-text">۵۰۰ گرم ته چین قالبی با برنج ایرانی، ۱۵۰ گرم سینه مرغ ریش ریش شده</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="card m-2 shadow" style="height: 32rem;">
+                                        <img src="~/images/meals/3.jpg" class="card-img-top" alt="..." style="height:20rem">
+                                        <div class="card-body">
+                                            <h5 class="card-title">چلو جوجه کباب</h5>
+                                            <p class="card-text">یک سیخ جوجه کباب سینه مرغ ۳۰۰ گرمی، ۳۵۰ گرم برنج ایرانی، کره، گوجه فرنگی</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a asp-action="Create" asp-route-id="@item.Id">افزودن غذا به منوی @item.Name</a>
+                </p>
+            </div>
+        </div>
+    }
+    <a data-toggle="ajax-modal" data-target="#createSupplier" data-url="@Url.Action("CreateSupplier")" class="btn btn-primary w-100 ">افزودن تامین کننده جدید</a>
+</div>

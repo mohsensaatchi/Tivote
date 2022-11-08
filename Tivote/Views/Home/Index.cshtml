@@ -1,0 +1,54 @@
+﻿@using System.Globalization
+@model IEnumerable<NewsCategory>
+@{
+    Layout = "HomeLayout";
+}
+
+<div class="accordion" id="DepartmentAccordion">
+    @{
+        PersianCalendar pc = new();
+    }
+    @{
+        string heading;
+        string target;
+        string controls;
+
+        int i = 0;
+        foreach (var item in Model)
+        {
+            i++;
+            heading = "Heading" + i.ToString().Trim();
+            target = "#Collapse" + i.ToString().Trim();
+            controls = "Collapse" + i.ToString().Trim();
+            <div class="accordion-item">
+                <h2 class="accordion-header" id=@heading>
+                    <button class="accordion-button">
+                        @item.Name
+                    </button>
+                </h2>
+                <div id=@controls class="accordion-collapse collapse show" aria-labelledby=@heading data-bs-parent="#DepartmentAccordion" style="font-family: KalamehWebFaNum;">
+                    <div class="accordion-body">
+                        @if (@item.News.Count > 0)
+                        {
+                            foreach (var news in item.News.OrderByDescending(n => n.DateTime))
+                            {
+                                <div class="card">
+                                    @if (news.ImageUrl != null && news.ImageUrl != string.Empty)
+                                    {
+                                        <img src="@news.ImageUrl" class="card-img-top" alt="...">
+                                    }
+                                    <div class="card-body">
+                                        <a asp-action="Content" asp-route-id="@news.Id" class="card-title">@news.Title</a>
+                                        <p class="card-text">@news.Description</p>
+                                        <p class="text-muted">@news.DateTime</p>
+                                        <p class="text-muted"> @Common.WeekDays[@pc.GetDayOfWeek(news.DateTime).ToString()] @pc.GetYear(news.DateTime)/@pc.GetMonth(news.DateTime)/@pc.GetDayOfMonth(news.DateTime)</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

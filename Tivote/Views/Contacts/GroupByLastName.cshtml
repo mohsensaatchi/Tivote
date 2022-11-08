@@ -1,0 +1,73 @@
+﻿@model Dictionary<string,List<Contact>>
+@{
+    Layout = "ContactsLayout";
+}
+@{
+    ViewData["Title"] = "اطلاعات تماس-دسته بندی با واحد";
+}
+<div class="accordion" id="DepartmentAccordion">
+    @{
+        string heading;
+        string target;
+        string controls;
+        int i = 0;
+        foreach (var item in Model.Keys)
+        {
+            i++;
+            heading = "Heading" + i.ToString().Trim();
+            target = "#Collapse" + i.ToString().Trim();
+            controls = "Collapse" + i.ToString().Trim();
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target=@target aria-expanded="true" aria-controls=@controls style="font-family: KalamehWebFaNum;">
+                        @item
+                    </button>
+                </h2>
+                <div id=@controls class="accordion-collapse collapse show" aria-labelledby=@heading data-bs-parent="#DepartmentAccordion" style="font-family: KalamehWebFaNum;">
+                    <div class="accordion-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        نام و نام خانوادگی
+                                    </th>
+                                    <th>
+                                        شماره
+                                    </th>
+                                    <th>
+                                        پست الکترونیک
+                                    </th>
+                                    <th>
+                                        مکان استقرار
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var contact in Model[item])
+                                    {
+                                        <tr>
+                                            <td>
+                                                @contact.LastName @contact.FirstName
+                                            </td>
+                                            <td>
+                                                @contact.Number
+                                            </td>
+                                            <td>
+                                                @contact.Email
+                                            </td>
+                                            <td>
+                                                @contact.Location.Name
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>

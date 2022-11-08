@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Meal>
+@{
+    Layout = "MealLayout";
+}
+<table>
+    @{
+        foreach (Meal meal in Model)
+        {
+            <tr>@meal.Name</tr>
+        }
+    }
+</table>
+<a data-toggle="ajax-modal" data-target="#createMeal" data-url="@Url.Action("CreateMeal")" class="btn btn-primary w-100 ">افزودن غذا</a>

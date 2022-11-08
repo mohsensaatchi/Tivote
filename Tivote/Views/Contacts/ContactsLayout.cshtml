@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col col-3 rounded-4 bg-light">
+        <a asp-area="" asp-controller="Contacts" asp-action="Index" class="btn btn-primary w-100">دسته بندی با مجموعه سازمانی</a>
+        <hr />
+        <a asp-area="" asp-controller="Contacts" asp-action="GroupByLocations" class="btn btn-primary w-100">دسته بندی با مکان استقرار</a>
+        <hr />
+        <a asp-area="" asp-controller="Contacts" asp-action="GroupByLastName" class="btn btn-primary w-100">دسته بندی با نام خانوادگی</a>
+        <hr />
+        @*<a data-toggle="ajax-modal" data-target="#createContact" data-url="@Url.Action("CreateContact")" class="btn btn-primary w-100">ایجاد اطلاعات تماس</a>*@
+        <a asp-action="CreateContact" class="btn btn-primary w-100">ایجاد اطلاعات تماس</a>
+        <hr />
+        <a asp-action="CreateDepartment" class="btn btn-primary w-100">ایجاد مجموعه سازمانی</a>
+        <hr />
+        <a asp-action="CreateLocation" class="btn btn-primary w-100">ایجاد مکان استقرار</a>
+        <hr />
+        <a asp-area="" asp-controller="Contacts" asp-action="SearchContact" class="btn btn-primary w-100">جستجو</a>
+    </div>
+    <div class="col col-9 rounded-4" style="height:100%;">
+        @{
+            TivPortal.ViewComponents.ModalViewComponent.ModalPath? modalPath = ViewBag.Modal as TivPortal.ViewComponents.ModalViewComponent.ModalPath;
+            if (modalPath is not null)
+            {
+                @await Component.InvokeAsync("Modal", new
+        {
+        Title = modalPath.Title,
+        Action = modalPath.Action,
+        Model = modalPath.Model
+        }
+        )
+            }
+        }
+        @RenderBody()
+    </div>
+</div>
+@section scripts{
+    <script>
+        $('body').on('click', '.modal-link', function () {
+            var actionUrl = $(this).attr('href');
+            $.get(actionUrl).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+            $(this).attr('data-target', '#modal-container');
+            $(this).attr('data-toggle', 'modal');
+        });
+
+        $('body').on('click', '.relative', function (e) {
+            e.preventDefault();
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            var dataToSend = form.serialize();
+            $.post(actionUrl, dataToSend).done(function (data) {
+                $('body').find('.modal-content').html(data);
+            });
+        })
+
+        $('body').on('click', '.close', function () {
+            $('body').find('#modal-container').modal('hide');
+        });
+
+        $('#CancelModal').on('click', function () {
+            return false;
+        });
+    </script>
+}
+    @await RenderSectionAsync("Scripts", required: false)

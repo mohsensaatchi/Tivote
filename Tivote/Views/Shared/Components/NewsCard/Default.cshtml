@@ -1,0 +1,45 @@
+﻿@using System.Globalization;
+@model IEnumerable<News>
+@{
+    var news = Model;
+    Dictionary<string, string> days = new()
+    {
+        {"Monday", "دوشنبه"},
+        {"Tuesday", "سه‌شنبه"},
+        {"Wednesday", "چهارشنبه"},
+        {"Thursday", "پنج‌شنبه"},
+        {"Friday", "جمعه"},
+        {"Saturday", "شنبه"},
+        {"Sunday", "یکشنبه"}
+    };
+}
+
+@foreach (var item in news)
+{
+
+    <div class="row">
+        <div class="col col-3">
+            @{
+                if(item.ImageUrl != null && item.ImageUrl != string.Empty)
+                {
+                    <img src="@item.ImageUrl" class="card-img-top" alt="...">
+                }
+            }
+            @{
+                PersianCalendar pc = new();
+            }
+            <p class="text-muted"> @days[@pc.GetDayOfWeek(item.DateTime).ToString()] @pc.GetYear(item.DateTime)/@pc.GetMonth(item.DateTime)/@pc.GetDayOfMonth(item.DateTime)</p>
+        </div>
+        <div class="col col-9">
+            <div class="card mb-3">
+                <div class="col col-9">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="News" asp-route-id="@item.Id">ادامه مطلب</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

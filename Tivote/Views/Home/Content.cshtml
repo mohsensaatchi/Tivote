@@ -1,0 +1,18 @@
+﻿@using System.Globalization
+@{
+    Layout = "HomeLayout";
+    PersianCalendar pc = new();
+    News news = ViewData["News"] as News;
+    if (news.ImageUrl is not null)
+    {
+        <img src="../../@news.ImageUrl" class="mw-100"/>
+    }
+}
+
+<h1>@news.Title</h1>
+<h2>@news.Description</h2>
+<p class="text-muted"> @Common.WeekDays[@pc.GetDayOfWeek(@news.DateTime).ToString()] @pc.GetYear(@news.DateTime)/@pc.GetMonth(@news.DateTime)/@pc.GetDayOfMonth(@news.DateTime)</p>
+<h3 class="text-muted">@news.Description</h3>
+<section>
+    @news.Content
+</section>

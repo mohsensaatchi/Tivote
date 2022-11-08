@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Tivote.ViewComponents.SidebarMenuViewComponent.SidebarMenuItem>
+<div class="col rounded-4 bg-light">
+    @{
+        foreach (var menuItem in Model)
+        {
+            string active = "";
+            if (Context.Request.Path.StartsWithSegments("/" + menuItem.Controller) || (Context.Request.Path == "/" && menuItem.Controller == "Home")) active = "btn btn-primary text-light";
+            if(menuItem.Modal)
+            {
+                <a data-toggle="ajax-modal" data-target="#@menuItem.Target" data-url="@Url.Action(@menuItem.Action)" class="btn btn-primary w-100 @active" data-backdrop="static" data-keyboard="false">@menuItem.Text</a>
+            }
+            else
+            {
+                <a asp-area=@menuItem.Area asp-controller=@menuItem.Controller asp-action=@menuItem.Action class="btn btn-primary w-100 @active">@menuItem.Text</a>
+            }
+            <hr />
+        }
+    }
+</div>
